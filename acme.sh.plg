@@ -6,8 +6,10 @@
 <!ENTITY md5       "">
 <!ENTITY launch    "Apps">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
+<!ENTITY confdir   "/boot/config/plugins/&name;">
 <!ENTITY github    "roninkenji/acme.sh-plugin">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/master/plugins/&name;.plg">
+<!ENTITY releaseArchiveURL "https://github.com/Neilpang/acme.sh/archive/master.tar.gz">
 ]>
 
 <PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;">
@@ -19,7 +21,7 @@
 
 <FILE Run="/bin/bash">
 <INLINE>
-mkdir -p /boot/config/plugins/&name;
+mkdir -p &confdir;
 mkdir -p &plugdir;
 wget -O- &releaseArchiveURL; | tar -C &plugdir; -zxf -
 echo ""
@@ -34,7 +36,7 @@ echo ""
 
 <FILE Name="/etc/cron.daily/acme.sh-renewal">
 <INLINE>
-0 0 * * * "/boot/config/plugins/&name;/acme.sh" --cron --home "&LE_WORKING_DIR;"
+0 0 * * * "/boot/config/plugins/&name;/acme.sh" --cron --home "&confdir;"
 </INLINE>
 </FILE>
 
