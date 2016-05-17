@@ -1,0 +1,50 @@
+<?xml version='1.0' standalone='yes'?>
+<!DOCTYPE PLUGIN [
+<!ENTITY name      "acme.sh-plugin">
+<!ENTITY author    "Kenji">
+<!ENTITY version   "2016.05.18">
+<!ENTITY md5       "">
+<!ENTITY launch    "Apps">
+<!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
+<!ENTITY github    "roninkenji/acme.sh-plugin">
+<!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/master/plugins/&name;.plg">
+]>
+
+<PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;">
+
+<CHANGES>
+###2016.05.18###
+- Initial version
+</CHANGES>
+
+<FILE Run="/bin/bash">
+<INLINE>
+mkdir -p /boot/config/plugins/&name;
+mkdir -p &plugdir;
+wget -O- &releaseArchiveURL; | tar -C &plugdir; -zxf -
+echo ""
+echo "----------------------------------------------------"
+echo " &name; has been installed."
+echo " Copyright 2016, &author;"
+echo " Version: &version;"
+echo "----------------------------------------------------"
+echo ""
+</INLINE>
+</FILE>
+
+<FILE Name="/etc/cron.daily/acme.sh-renewal">
+<INLINE>
+0 0 * * * "/boot/config/plugins/&name;/acme.sh" --cron --home "&LE_WORKING_DIR;"
+</INLINE>
+</FILE>
+
+<!--
+The 'remove' script.
+-->
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+rm -f /etc/cron.daily/acme.sh-renewal
+rm -rf /boot/config/plugins/&name;
+</INLINE>
+</FILE> 
+</PLUGIN>
