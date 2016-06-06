@@ -14,7 +14,7 @@
 <!ENTITY acme.shMD5 "658e471f79762d1e19c751b18ba022dd">
 ]>
 
-<PLUGIN name="&name;" author="&author;" version="&version;" luginURL="&pluginURL;">
+<PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;">
 
 <CHANGES>
 ###2016.06.06###
