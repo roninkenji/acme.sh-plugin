@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "acme.sh-plugin">
 <!ENTITY author    "Kenji">
-<!ENTITY version   "2016.05.18">
+<!ENTITY version   "2016.06.06">
 <!ENTITY md5       "">
 <!ENTITY launch    "Acme.sh">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
@@ -17,6 +17,9 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" luginURL="&pluginURL;">
 
 <CHANGES>
+###2016.06.06###
+- changed cronjob to reflect correct script location
+
 ###2016.05.18###
 - Initial version
 </CHANGES>
@@ -26,15 +29,15 @@
 <MD5>&acme.shMD5;</MD5>
 </FILE>
 
-<FILE Run="/bin/bash">
-<INLINE>
-mkdir -vp &confdir;
+<FILE Run="/bin/sh">
+<INLINE>#!/bin/bash
+mkdir -vp &confdir;/certs
 mkdir -vp &plugdir;
-tar -C &plugdir; -zxf &confdir;/acme.sh.tgz
-mv -v &plugdir;/acme.sh-&acme.shVersion;/* &plugdir;
-rm -f &plugdir;/README.md
-rmdir -v &plugdir;/acme.sh-&acme.shVersion;
-# acme.sh install
+/usr/bin/tar -C &plugdir; -zxf &confdir;/acme.sh.tgz
+mv -v &plugdir;/acme.sh-&acme.shVersion;/acme.sh &plugdir;
+mv -v &plugdir;/acme.sh-&acme.shVersion;/dnsapi &plugdir;
+rm -rf &plugdir;/acme.sh-&acme.shVersion;
+ln -svf &plugdir;/acme.sh /usr/bin
 echo ""
 echo "----------------------------------------------------"
 echo " &name; has been installed."
@@ -45,25 +48,75 @@ echo ""
 </INLINE>
 </FILE>
 
-<FILE Name="&plugdir;/README.md">
+<FILE Name="/root/.acme.sh/account.conf">
 <INLINE>
-####acme.sh####
+ACCOUNT_CONF_PATH="&confdir;/account.conf"
+</INLINE>
+</FILE>
+
+<FILE Name="&confdir;/account.conf">
+<INLINE><![CDATA[
+#ACCOUNT_CONF_PATH=xxxx
+
+#Account configurations:
+#Here are the supported macros, uncomment them to make them take effect.
+
+#ACCOUNT_EMAIL="acme@way-of-the-blade.com"
+ACCOUNT_KEY_PATH="/boot/config/plugins/acme.sh-plugin/certs"
+CERT_HOME="/boot/config/plugins/acme.sh-plugin/certs"
+
+#STAGE=1 # Use the staging api
+#FORCE=1 # Force to issue cert
+#DEBUG=1 # Debug mode
+
+#ACCOUNT_KEY_HASH=account key hash
+
+USER_AGENT="acme.sh client: https://github.com/Neilpang/acme.sh"
+
+#USER_PATH=
+
+#dns api
+#######################
+#Cloudflare:
+#api key
+#CF_Key="sdfsdfsdfljlbjkljlkjsdfoiwje"
+#account email
+#CF_Email="xxxx@sss.com"
+
+#######################
+#Dnspod.cn:
+#api key id
+#DP_Id="1234"
+#api key
+#DP_Key="sADDsdasdgdsf"
+
+#######################
+#Cloudxns.com:
+#CX_Key="1234"
+#
+#CX_Secret="sADDsdasdgdsf"
+]]>
+</INLINE>
+</FILE>
+
+<FILE Name="&plugdir;/README.md">
+<INLINE>####acme.sh####
 This plugin installs acme.sh for generating and renewing Let's Encrypt SSL certificates.
 </INLINE>
 </FILE>
 
 <FILE Name="/etc/cron.daily/acme.sh-renewal">
 <INLINE>
-0 0 * * * "/boot/config/plugins/&name;/acme.sh" --cron --home "&confdir;"
+0 0 * * * "%plugdir;/acme.sh" --cron --home "&confdir;"
 </INLINE>
 </FILE>
 
 <!--
 The 'remove' script.
 -->
-<FILE Run="/bin/bash" Method="remove">
-<INLINE>
-rm -vf /etc/cron.daily/acme.sh-renewal
+<FILE Run="/bin/sh" Method="remove">
+<INLINE>rm -vf /etc/cron.daily/acme.sh-renewal
+rm -vrf /root/.acme.sh
 rm -vrf &plugdir;
 </INLINE>
 </FILE> 
