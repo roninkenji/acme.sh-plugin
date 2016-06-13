@@ -1,0 +1,8 @@
+Menu="Acme:1"
+Title="Registered Domains"
+Type="xmenu"
+Tabs="true"
+---
+<?php
+include "/usr/local/emhttp/plugins/acme.sh-plugin/include/Domains.php";
+?>
