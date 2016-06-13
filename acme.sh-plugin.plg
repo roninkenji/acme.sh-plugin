@@ -2,14 +2,14 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "acme.sh-plugin">
 <!ENTITY author    "Kenji">
-<!ENTITY version   "2016.06.06">
+<!ENTITY version   "2016.06.14">
 <!ENTITY md5       "">
 <!ENTITY launch    "Acme.sh">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY confdir   "/boot/config/plugins/&name;">
 <!ENTITY github    "roninkenji/acme.sh-plugin">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/master/&name;.plg">
-<!ENTITY acme.shVersion "2016.05.18"> 
+<!ENTITY acme.shVersion "2016.06.11"> 
 <!ENTITY acme.shURL "https://github.com/roninkenji/acme.sh/archive/&acme.shVersion;.tar.gz">
 <!ENTITY acme.shMD5 "658e471f79762d1e19c751b18ba022dd">
 ]>
@@ -17,6 +17,9 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;">
 
 <CHANGES>
+###2016.06.14###
+- switched to v2.6.6 of acme.sh
+
 ###2016.06.06###
 - changed cronjob to reflect correct script location
 
