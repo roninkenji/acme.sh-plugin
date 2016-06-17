@@ -63,8 +63,10 @@ $domains=$domains_cfg;
  function showDetails() {
  }
 </script>
-<input type="button" value="Add Row" onclick="addRow('dataTable')" />
-<input type="button" value="Delete Row" onclick="deleteRow('dataTable')" />
+<div id="table_controls">
+    <input type="button" value="Add Row" onclick="addRow('dataTable')" style="align:right;" />
+    <input type="button" value="Delete Row" onclick="deleteRow('dataTable')" style="align:right;" />
+</div>
 <table id="dataTable">
     <thead>
         <tr>
