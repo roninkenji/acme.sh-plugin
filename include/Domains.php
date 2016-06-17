@@ -85,6 +85,7 @@ $domains=$domains_cfg;
         $san=($domains[$key]["Le_Alt"])=="no"?$domain:$domains[$key]["Le_Alt"];
         $keylen=($domains[$key]["Le_Keylength"])=="no"?2048:$domains[$key]["Le_Keylength"];
         echo "<tr>";
+        echo "<td><input type="checkbox" name="chk"/></td>";
         echo "<td>".$domain."</td>";
         echo "<td>".$keylen."</td>";
         echo "<td>".date("M d, Y H:i:s", $domains[$key]["Le_CertCreateTime"])."</td>";
