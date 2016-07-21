@@ -11,7 +11,7 @@
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/master/&name;.plg">
 <!ENTITY acme.shVersion "2016.06.11"> 
 <!ENTITY acme.shURL "https://github.com/roninkenji/acme.sh/archive/&acme.shVersion;.tar.gz">
-<!ENTITY acme.shMD5 "658e471f79762d1e19c751b18ba022dd">
+<!ENTITY acme.shMD5 "7756ed01b860fe70011123deb14e1055">
 ]>
 
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;">
