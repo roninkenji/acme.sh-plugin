@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "acme.sh-plugin">
 <!ENTITY author    "Kenji">
-<!ENTITY version   "2016.06.14">
+<!ENTITY version   "2016.07.21">
 <!ENTITY md5       "">
 <!ENTITY launch    "Acme.sh">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
@@ -17,6 +17,9 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;">
 
 <CHANGES>
+###2016.07.21###
+- changed cronjob to reflect correct script location
+
 ###2016.06.14###
 - switched to v2.6.6 of acme.sh
 
@@ -110,7 +113,7 @@ This plugin installs acme.sh for generating and renewing Let's Encrypt SSL certi
 
 <FILE Name="/etc/cron.daily/acme.sh-renewal">
 <INLINE>
-0 0 * * * "%plugdir;/acme.sh" --cron --home "&confdir;"
+0 0 * * * "&plugdir;/acme.sh" --cron --home "&confdir;"
 </INLINE>
 </FILE>
 
