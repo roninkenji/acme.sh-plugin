@@ -97,17 +97,18 @@ This plugin installs [acme.sh](https://github.com/Neilpang/acme.sh) for generati
   </FILE>
 
   <FILE Run="/bin/sh">
-    <INLINE>
-#!/bin/bash
-mkdir -vp &confdir;/certs
-mkdir -vp &plugdir;
-echo '"&plugdir;/acme.sh" --cron --home "&confdir;" 2&gt;&amp;1 &gt; /var/log/acme.sh-plugin.log' > /etc/cron.daily/acme.sh-renewal
-chmod +x /etc/cron.daily/acme.sh-renewal
+    <INLINE>#!/bin/bash
+mkdir -vp &plugdir; &confdir;/certs
+
 /usr/bin/tar -C &plugdir; -zxf &confdir;/acme.sh.tgz
 mv -v &plugdir;/acme.sh-&acme.shVersion;/acme.sh &plugdir;
 mv -v &plugdir;/acme.sh-&acme.shVersion;/dnsapi &plugdir;
 rm -rf &plugdir;/acme.sh-&acme.shVersion;
 ln -svf &plugdir;/acme.sh /usr/bin
+
+echo '"&plugdir;/acme.sh" --cron --home "&confdir;" 2&gt;&amp;1 &gt; /var/log/acme.sh-plugin.log' > /etc/cron.daily/acme.sh-renewal
+chmod +x /etc/cron.daily/acme.sh-renewal
+
 echo ""
 echo "----------------------------------------------------"
 echo " &name; has been installed."
