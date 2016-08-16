@@ -17,20 +17,20 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;">
 
   <CHANGES>
-    ###2016.08.16###
-    - Corrections to the installed cronjob
+###2016.08.16###
+- Corrections to the installed cronjob
 
-    ###2016.07.21###
-    - changed cronjob to reflect correct script location
+###2016.07.21###
+- changed cronjob to reflect correct script location
 
-    ###2016.06.14###
-    - switched to v2.6.6 of acme.sh
+###2016.06.14###
+- switched to v2.6.6 of acme.sh
 
-    ###2016.06.06###
-    - changed cronjob to reflect correct script location
+###2016.06.06###
+- changed cronjob to reflect correct script location
 
-    ###2016.05.18###
-    - Initial version
+###2016.05.18###
+- Initial version
   </CHANGES>
 
   <FILE Name="&confdir;/acme.sh.tgz">
@@ -39,84 +39,86 @@
   </FILE>
 
   <FILE Run="/bin/sh">
-    <INLINE>#!/bin/bash
-    mkdir -vp &confdir;/certs
-    mkdir -vp &plugdir;
-    /usr/bin/tar -C &plugdir; -zxf &confdir;/acme.sh.tgz
-    mv -v &plugdir;/acme.sh-&acme.shVersion;/acme.sh &plugdir;
-    mv -v &plugdir;/acme.sh-&acme.shVersion;/dnsapi &plugdir;
-    rm -rf &plugdir;/acme.sh-&acme.shVersion;
-    ln -svf &plugdir;/acme.sh /usr/bin
-    echo ""
-    echo "----------------------------------------------------"
-    echo " &name; has been installed."
-    echo " Copyright 2016, &author;"
-    echo " Version: &version;"
-    echo "----------------------------------------------------"
-    echo ""
+    <INLINE>
+#!/bin/bash
+mkdir -vp &confdir;/certs
+mkdir -vp &plugdir;
+/usr/bin/tar -C &plugdir; -zxf &confdir;/acme.sh.tgz
+mv -v &plugdir;/acme.sh-&acme.shVersion;/acme.sh &plugdir;
+mv -v &plugdir;/acme.sh-&acme.shVersion;/dnsapi &plugdir;
+rm -rf &plugdir;/acme.sh-&acme.shVersion;
+ln -svf &plugdir;/acme.sh /usr/bin
+echo ""
+echo "----------------------------------------------------"
+echo " &name; has been installed."
+echo " Copyright 2016, &author;"
+echo " Version: &version;"
+echo "----------------------------------------------------"
+echo ""
     </INLINE>
   </FILE>
 
   <FILE Name="/root/.acme.sh/account.conf">
     <INLINE>
-      ACCOUNT_CONF_PATH="&confdir;/account.conf"
+ACCOUNT_CONF_PATH="&confdir;/account.conf"
     </INLINE>
   </FILE>
 
   <FILE Name="&confdir;/account.conf">
     <INLINE><![CDATA[
-    #ACCOUNT_CONF_PATH=xxxx
+#ACCOUNT_CONF_PATH=xxxx
 
-    #Account configurations:
-    #Here are the supported macros, uncomment them to make them take effect.
+#Account configurations:
+#Here are the supported macros, uncomment them to make them take effect.
 
-    #ACCOUNT_EMAIL=
-    ACCOUNT_KEY_PATH="/boot/config/plugins/acme.sh-plugin/certs"
-    CERT_HOME="/boot/config/plugins/acme.sh-plugin/certs"
+#ACCOUNT_EMAIL=
+ACCOUNT_KEY_PATH="/boot/config/plugins/acme.sh-plugin/certs"
+CERT_HOME="/boot/config/plugins/acme.sh-plugin/certs"
 
-    #STAGE=1 # Use the staging api
-    #FORCE=1 # Force to issue cert
-    #DEBUG=1 # Debug mode
+#STAGE=1 # Use the staging api
+#FORCE=1 # Force to issue cert
+#DEBUG=1 # Debug mode
 
-    #ACCOUNT_KEY_HASH=account key hash
+#ACCOUNT_KEY_HASH=account key hash
 
-    USER_AGENT="acme.sh client: https://github.com/Neilpang/acme.sh"
+USER_AGENT="acme.sh client: https://github.com/Neilpang/acme.sh"
 
-    #USER_PATH=
+#USER_PATH=
 
-    #dns api
-    #######################
-    #Cloudflare:
-    #api key
-    #CF_Key="sdfsdfsdfljlbjkljlkjsdfoiwje"
-    #account email
-    #CF_Email="xxxx@sss.com"
+#dns api
+#######################
+#Cloudflare:
+#api key
+#CF_Key="sdfsdfsdfljlbjkljlkjsdfoiwje"
+#account email
+#CF_Email="xxxx@sss.com"
 
-    #######################
-    #Dnspod.cn:
-    #api key id
-    #DP_Id="1234"
-    #api key
-    #DP_Key="sADDsdasdgdsf"
+#######################
+#Dnspod.cn:
+#api key id
+#DP_Id="1234"
+#api key
+#DP_Key="sADDsdasdgdsf"
 
-    #######################
-    #Cloudxns.com:
-    #CX_Key="1234"
-    #
-    #CX_Secret="sADDsdasdgdsf"
-    ]]>
+#######################
+#Cloudxns.com:
+#CX_Key="1234"
+#
+#CX_Secret="sADDsdasdgdsf"
+]]>
     </INLINE>
   </FILE>
 
   <FILE Name="&plugdir;/README.md">
-    <INLINE>####acme.sh####
-    This plugin installs [acme.sh](https://github.com/Neilpang/acme.sh) for generating and renewing Let's Encrypt SSL certificates.
+    <INLINE>
+####acme.sh####
+This plugin installs [acme.sh](https://github.com/Neilpang/acme.sh) for generating and renewing Let's Encrypt SSL certificates.
     </INLINE>
   </FILE>
 
   <FILE Name="/etc/cron.daily/acme.sh-renewal">
     <INLINE>
-      "&plugdir;/acme.sh" --cron --home "&confdir;" 2&gt;&amp;1 &gt; /var/log/acme.sh-plugin.log
+"&plugdir;/acme.sh" --cron --home "&confdir;" 2&gt;&amp;1 &gt; /var/log/acme.sh-plugin.log
     </INLINE>
   </FILE>
 
@@ -124,9 +126,10 @@
       The 'remove' script.
   -->
   <FILE Run="/bin/sh" Method="remove">
-    <INLINE>rm -vf /etc/cron.daily/acme.sh-renewal
-    rm -vrf /root/.acme.sh
-    rm -vrf &plugdir;
+    <INLINE>
+rm -vf /etc/cron.daily/acme.sh-renewal
+rm -vrf /root/.acme.sh
+rm -vrf &plugdir;
     </INLINE>
   </FILE> 
 </PLUGIN>
