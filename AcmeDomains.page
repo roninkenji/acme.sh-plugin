@@ -1,8 +1,40 @@
-Menu="Acme:1"
-Title="Registered Domains"
-Type="xmenu"
-Tabs="true"
+Menu="Acme.sh"
+Title="Enrolled Domains"
 ---
-<?php
-include "/usr/local/emhttp/plugins/acme.sh-plugin/include/Domains.php";
-?>
+<link type="text/css" rel="stylesheet" href="/webGui/styles/jquery.ui.css">
+<link type="text/css" rel="stylesheet" href="/webGui/styles/jquery.switchbutton.css">
+<!-- <?php print_r($cfg); ?> -->
+<!-- <?php print_r($domains); ?> -->
+<!-- <?php print_r($domains_cfg); ?> -->
+<script src="/webGui/javascript/jquery.switchbutton.js"></script>
+ <table id="dataTable">
+    <thead>
+        <tr>
+            <td></td>
+            <td>Domain</td>
+            <td>Key Length</td>
+            <td>Created</td>
+            <td>Expires</td>
+            <td>Operations</td>
+        </tr>
+    </thead>
+    <tbody id="domains-table-body">
+        <?php
+        foreach ($domains as $key) {
+			$domain=$domains_cfg[$key]["Le_Domain"];
+			$san=($domains_cfg[$key]["Le_Alt"])=="no"?$domain:$domains_cfg[$key]["Le_Alt"];
+			$keylen=($domains_cfg[$key]["Le_Keylength"])=="no"?2048:$domains_cfg[$key]["Le_Keylength"];
+			echo "<tr>";
+			echo "<td><input type='checkbox' name='chk'/></td>";
+			echo "<td>".$domain."</td>";
+			echo "<td>".$keylen."</td>";
+			echo "<td>".date("M d, Y H:i:s", $domains_cfg[$key]["Le_CertCreateTime"])."</td>";
+			echo "<td>".date("M d, Y H:i:s", $domains_cfg[$key]["Le_NextRenewTime"])."</td>";
+			echo "<td><input type='button' onclick='renew()' value='Renew'></td>";
+			echo "<td><input type='button' onclick='reload()' value='Reload'></td>";
+			echo "<td><input type='button' onclick='showDetails()' value='Details'></td>";
+			echo "</tr>";
+		}
+        ?>
+    </tbody>
+</table>

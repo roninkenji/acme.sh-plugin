@@ -1,0 +1,8 @@
+Menu="Utilities"
+Type="xmenu"
+Icon="images/acme.sh-plugin.png"
+Title="Acme.sh"
+---
+<?php
+require("/usr/local/emhttp/plugins/acme.sh-plugin/include/loadConf.php");
+?>
