@@ -54,8 +54,9 @@ ACCOUNT_CONF_PATH="&confdir;/account.conf"
 #Account configurations:
 #Here are the supported macros, uncomment them to make them take effect.
 
+#AGREEMENT="https://letsencrypt.org/documents/LE-SA-v1.1.1-August-1-2016.pdf"
 #ACCOUNT_EMAIL=
-ACCOUNT_KEY_PATH="/boot/config/plugins/acme.sh-plugin/certs"
+ACCOUNT_KEY_PATH="/boot/config/plugins/acme.sh-plugin/account.conf"
 CERT_HOME="/boot/config/plugins/acme.sh-plugin/certs"
 
 #STAGE=1 # Use the staging api
