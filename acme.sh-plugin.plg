@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "acme.sh-plugin">
 <!ENTITY author    "Kenji">
-<!ENTITY version   "2016.08.16">
+<!ENTITY version   "2016.08.28">
 <!ENTITY md5       "">
 <!ENTITY launch    "Acme.sh">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
@@ -11,12 +11,15 @@
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/master/&name;.plg">
 <!ENTITY acme.shVersion "2016.06.11"> 
 <!ENTITY acme.shURL "https://github.com/roninkenji/acme.sh/archive/&acme.shVersion;.tar.gz">
-<!ENTITY acme.shMD5 "d71b72d0519547de028aff155ba6d943">
+<!ENTITY acme.shMD5 "7756ed01b860fe70011123deb14e1055">
 ]>
 
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;">
 
   <CHANGES>
+###2016.08.28###
+- Corrected plugin MD5 sum
+
 ###2016.08.16###
 - Corrections to the installed cronjob
 
