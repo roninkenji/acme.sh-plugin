@@ -2,21 +2,24 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "acme.sh-plugin">
 <!ENTITY author    "Kenji">
-<!ENTITY version   "2016.08.28">
+<!ENTITY version   "2017.07.28">
 <!ENTITY md5       "">
 <!ENTITY launch    "Acme.sh">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY confdir   "/boot/config/plugins/&name;">
 <!ENTITY github    "roninkenji/acme.sh-plugin">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/master/&name;.plg">
-<!ENTITY acme.shVersion "2016.06.11"> 
-<!ENTITY acme.shURL "https://github.com/roninkenji/acme.sh/archive/&acme.shVersion;.tar.gz">
-<!ENTITY acme.shMD5 "7756ed01b860fe70011123deb14e1055">
+<!ENTITY acme.shVersion "2.7.2"> 
+<!ENTITY acme.shURL "https://github.com/Neilpang/acme.sh/archive/&acme.shVersion;.tar.gz">
+<!ENTITY acme.shMD5 "94c1a9db515cff6b4ee6c9c4a4668700">
 ]>
 
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;">
 
   <CHANGES>
+###2017.07.28###
+- Using latest release of acme.sh from upstream
+
 ###2016.08.28###
 - Corrected plugin MD5 sum
 
@@ -97,6 +100,10 @@ USER_AGENT="acme.sh client: https://github.com/Neilpang/acme.sh"
     <INLINE>
 ####acme.sh####
 This plugin installs [acme.sh](https://github.com/Neilpang/acme.sh) for generating and renewing Let's Encrypt SSL certificates.
+
+####TODO####
+This plugin needs some integration work with initial certificate generation:
+An initial run is currently necessary to generate the certificates the first time
     </INLINE>
   </FILE>
 
