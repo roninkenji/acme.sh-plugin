@@ -2,21 +2,25 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "acme.sh-plugin">
 <!ENTITY author    "Kenji">
-<!ENTITY version   "2017.07.28">
+<!ENTITY version   "2018.01.17">
 <!ENTITY md5       "">
 <!ENTITY launch    "Acme.sh">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY confdir   "/boot/config/plugins/&name;">
 <!ENTITY github    "roninkenji/acme.sh-plugin">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/master/&name;.plg">
-<!ENTITY acme.shVersion "2.7.2"> 
+<!ENTITY acme.shVersion "2.7.5">
 <!ENTITY acme.shURL "https://github.com/Neilpang/acme.sh/archive/&acme.shVersion;.tar.gz">
-<!ENTITY acme.shMD5 "94c1a9db515cff6b4ee6c9c4a4668700">
+<!ENTITY acme.shMD5 "35a85dea33a9ec7a20d21f05b490ca2a">
 ]>
 
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;">
 
   <CHANGES>
+###2018.01.17###
+- Upgrade acme.sh to 2.7.5
+- Add support for DNS API
+
 ###2017.07.28###
 - Using latest release of acme.sh from upstream
 
@@ -52,13 +56,13 @@ ACCOUNT_CONF_PATH="&confdir;/account.conf"
 
   <FILE Name="&confdir;/account.conf">
     <INLINE><![CDATA[
-#ACCOUNT_CONF_PATH=xxxx
+#LOG_FILE="/root/.acme.sh/log"
+#LOG_LEVEL=1
 
-#Account configurations:
-#Here are the supported macros, uncomment them to make them take effect.
+#AUTO_UPGRADE="1"
 
-#AGREEMENT="https://letsencrypt.org/documents/LE-SA-v1.1.1-August-1-2016.pdf"
-#ACCOUNT_EMAIL=
+#NO_TIMESTAMP=1
+
 ACCOUNT_KEY_PATH="/boot/config/plugins/acme.sh-plugin/account.conf"
 CERT_HOME="/boot/config/plugins/acme.sh-plugin/certs"
 
@@ -66,32 +70,8 @@ CERT_HOME="/boot/config/plugins/acme.sh-plugin/certs"
 #FORCE=1 # Force to issue cert
 #DEBUG=1 # Debug mode
 
-#ACCOUNT_KEY_HASH=account key hash
-
 USER_AGENT="acme.sh client: https://github.com/Neilpang/acme.sh"
 
-#USER_PATH=
-
-#dns api
-#######################
-#Cloudflare:
-#api key
-#CF_Key="sdfsdfsdfljlbjkljlkjsdfoiwje"
-#account email
-#CF_Email="xxxx@sss.com"
-
-#######################
-#Dnspod.cn:
-#api key id
-#DP_Id="1234"
-#api key
-#DP_Key="sADDsdasdgdsf"
-
-#######################
-#Cloudxns.com:
-#CX_Key="1234"
-#
-#CX_Secret="sADDsdasdgdsf"
 ]]>
     </INLINE>
   </FILE>
@@ -112,8 +92,10 @@ An initial run is currently necessary to generate the certificates the first tim
 mkdir -v -p &plugdir; &confdir;/certs
 tar -C &plugdir; -zxf &confdir;/acme.sh.tgz;
 
-cp &plugdir;/acme.sh-&acme.shVersion;/acme.sh /usr/bin;
-chmod +x /usr/bin/acme.sh;
+# cp &plugdir;/acme.sh-&acme.shVersion;/acme.sh /usr/bin;
+# chmod +x /usr/bin/acme.sh;
+
+ln -sf &plugdir;/acme.sh-&acme.shVersion;/acme.sh /usr/bin/acme.sh
 
 echo '"/usr/bin/acme.sh" --cron --home "&confdir;" 2&gt;&amp;1 &gt; /var/log/acme.sh-plugin.log' > /etc/cron.daily/acme.sh-renewal
 chmod +x /etc/cron.daily/acme.sh-renewal
@@ -138,5 +120,5 @@ rm -vf /usr/bin/acme.sh
 rm -vrf /root/.acme.sh
 rm -vrf &plugdir;
     </INLINE>
-  </FILE> 
+  </FILE>
 </PLUGIN>
