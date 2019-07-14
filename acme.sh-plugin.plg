@@ -2,21 +2,24 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "acme.sh-plugin">
 <!ENTITY author    "Kenji">
-<!ENTITY version   "2018.01.17">
+<!ENTITY version   "2019.07.14">
 <!ENTITY md5       "">
 <!ENTITY launch    "Acme.sh">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY confdir   "/boot/config/plugins/&name;">
 <!ENTITY github    "roninkenji/acme.sh-plugin">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/&github;/master/&name;.plg">
-<!ENTITY acme.shVersion "2.7.5">
+<!ENTITY acme.shVersion "2.8.1">
 <!ENTITY acme.shURL "https://github.com/Neilpang/acme.sh/archive/&acme.shVersion;.tar.gz">
-<!ENTITY acme.shMD5 "35a85dea33a9ec7a20d21f05b490ca2a">
+<!ENTITY acme.shMD5 "86e2c16c0bd96fcf89bc2488d7589b43">
 ]>
 
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;">
 
   <CHANGES>
+###2019.07.14###
+- Bump to 2.8.1
+
 ###2018.01.17###
 - Upgrade acme.sh to 2.7.5
 - Add support for DNS API
@@ -91,9 +94,6 @@ An initial run is currently necessary to generate the certificates the first tim
     <INLINE>
 mkdir -v -p &plugdir; &confdir;/certs
 tar -C &plugdir; -zxf &confdir;/acme.sh.tgz;
-
-# cp &plugdir;/acme.sh-&acme.shVersion;/acme.sh /usr/bin;
-# chmod +x /usr/bin/acme.sh;
 
 ln -sf &plugdir;/acme.sh-&acme.shVersion;/acme.sh /usr/bin/acme.sh
 
